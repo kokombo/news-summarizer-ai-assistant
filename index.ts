@@ -68,3 +68,40 @@ const getNews = async (topic: string) => {
   const news = await getNews("bitcoin");
   console.log(news);
 })();
+
+class AssistantManager {
+  threadId: string;
+  assistantId: string;
+  model: string = model;
+  client: OpenAI;
+  assistant: string;
+  thread: string;
+  run: string;
+  summary: string;
+
+  constructor(
+    threadId: string,
+    assistantId: string,
+    model: string,
+    client: OpenAI,
+    thread: string,
+    run: string,
+    summary: string,
+    assistant: string
+  ) {
+    this.threadId = threadId;
+    this.assistantId = assistantId;
+    this.model = model;
+    this.client = client;
+    this.assistant = assistant;
+    this.thread = thread;
+    this.run = run;
+    this.summary = summary;
+
+    if (assistantId) {
+      this.client.beta.assistants.retrieve(assistantId).then((res) => res.id);
+    }
+  }
+
+  init() {}
+}
